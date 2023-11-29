@@ -1,0 +1,28 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Client_Dueling
+Upstream-Contact: Johnny Patterson <johnny.patterson.jr@gmail.com>
+Source: https://github.com/johnnypattersonjr/Client_Dueling
+
+Files:
+	.gitattributes
+	.gitignore
+	description.txt
+	README.md
+Copyright: Copyright (c) Johnny Patterson
+License: CC0-1.0
+
+Files:
+	scripts/*
+	client.cs
+Copyright: Copyright (c) Johnny Patterson
+License: GPL-3.0-or-later
+
+Files:
+	data/ui/*
+Copyright: Copyright (c) Johnny Patterson
+License: CC0-1.0
+
+Files:
+	data/ui/icons/*
+Copyright: Copyright 2023 Fonticons, Inc.
+License: CC-BY-4.0
