@@ -1,0 +1,3 @@
+Title: Dueling Client
+Author: Johnny Patterson
+Client for the Dueling game mode.
