@@ -1902,41 +1902,41 @@ function dcDuelist::onWake(%this)
 
 function dcAvatarReset(%this)
 {
-	%this.aDecalName = "AAA-None";
-	%this.aFaceName = "smiley";
+	%this.bDecalName = "AAA-None";
+	%this.bFaceName = "smiley";
 
-	%this.aAccentColor = "1 1 1 1";
-	%this.aChestColor = "0.900 0.900 0.900 1.000";
-	%this.aHatColor = "1 1 1 1";
-	%this.aHeadColor = "1 0.878431 0.611765 1";
-	%this.aHipColor = "0.200 0.000 0.800 1.000";
-	%this.aLArmColor = "0.900 0.000 0.000 1.000";
-	%this.aLHandColor = "1 0.878431 0.611765 1";
-	%this.aLLegColor = "0.200 0.000 0.800 1.000";
-	%this.aPackColor = "1 1 1 1";
-	%this.aRArmColor = "0.900 0.000 0.000 1.000";
-	%this.aRHandcolor = "1 0.878431 0.611765 1";
-	%this.aRLegcolor = "0.200 0.000 0.800 1.000";
-	%this.aSecondPackColor = "1 1 1 1";
+	%this.bAccentColor = "1 1 1 1";
+	%this.bChestColor = "0.900 0.900 0.900 1.000";
+	%this.bHatColor = "1 1 1 1";
+	%this.bHeadColor = "1 0.878431 0.611765 1";
+	%this.bHipColor = "0.200 0.000 0.800 1.000";
+	%this.bLArmColor = "0.900 0.000 0.000 1.000";
+	%this.bLHandColor = "1 0.878431 0.611765 1";
+	%this.bLLegColor = "0.200 0.000 0.800 1.000";
+	%this.bPackColor = "1 1 1 1";
+	%this.bRArmColor = "0.900 0.000 0.000 1.000";
+	%this.bRHandcolor = "1 0.878431 0.611765 1";
+	%this.bRLegcolor = "0.200 0.000 0.800 1.000";
+	%this.bSecondPackColor = "1 1 1 1";
 
-	%this.aAccent = 0;
-	%this.aChest = 0;
-	%this.aHat = 0;
-	%this.aHip = 0;
-	%this.aLArm = 0;
-	%this.aLHand = 0;
-	%this.aLLeg = 0;
-	%this.aPack = 0;
-	%this.aRArm = 0;
-	%this.aRHand = 0;
-	%this.aRLeg = 0;
-	%this.aSecondPack = 0;
+	%this.bAccent = 0;
+	%this.bChest = 0;
+	%this.bHat = 0;
+	%this.bHip = 0;
+	%this.bLArm = 0;
+	%this.bLHand = 0;
+	%this.bLLeg = 0;
+	%this.bPack = 0;
+	%this.bRArm = 0;
+	%this.bRHand = 0;
+	%this.bRLeg = 0;
+	%this.bSecondPack = 0;
 }
 
 function dcAvatarUpdate(%this, %headOnly, %flip)
 {
 	for (%a = 0; %a < $numDecal; %a++)
-		if (fileBase($decal[%a]) $= fileBase(%this.aDecalName))
+		if (fileBase($decal[%a]) $= fileBase(%this.bDecalName))
 			break;
 
 	if (%a >= $numDecal)
@@ -1945,7 +1945,7 @@ function dcAvatarUpdate(%this, %headOnly, %flip)
 	%this.setIflFrame("", "decal", %a);
 
 	for (%a = 0; %a < $numFace; %a++)
-		if (fileBase($face[%a]) $= fileBase(%this.aFaceName))
+		if (fileBase($face[%a]) $= fileBase(%this.bFaceName))
 			break;
 
 	if (%a >= $numFace)
@@ -1953,32 +1953,32 @@ function dcAvatarUpdate(%this, %headOnly, %flip)
 
 	%this.setIflFrame("", "face", %a);
 
-	%accentColor = %this.aAccentColor;
-	%chestColor = %this.aChestColor;
-	%hatColor = %this.aHatColor;
-	%headColor = %this.aHeadColor;
-	%hipColor = %this.aHipColor;
-	%larmColor = %this.aLArmColor;
-	%lhandColor = %this.aLHandColor;
-	%llegColor = %this.aLLegColor;
-	%packColor = %this.aPackColor;
-	%rarmColor = %this.aRArmColor;
-	%rhandcolor = %this.aRHandColor;
-	%rlegcolor = %this.aRLegColor;
-	%secondPackColor = %this.aSecondPackColor;
+	%accentColor = %this.bAccentColor;
+	%chestColor = %this.bChestColor;
+	%hatColor = %this.bHatColor;
+	%headColor = %this.bHeadColor;
+	%hipColor = %this.bHipColor;
+	%larmColor = %this.bLArmColor;
+	%lhandColor = %this.bLHandColor;
+	%llegColor = %this.bLLegColor;
+	%packColor = %this.bPackColor;
+	%rarmColor = %this.bRArmColor;
+	%rhandcolor = %this.bRHandColor;
+	%rlegcolor = %this.bRLegColor;
+	%secondPackColor = %this.bSecondPackColor;
 
-	%accent = %this.aAccent;
-	%chest = %this.aChest;
-	%hat = %this.aHat;
-	%hip = %this.aHip;
-	%larm = %this.aLArm;
-	%lhand = %this.aLHand;
-	%lleg = %this.aLLeg;
-	%pack = %this.aPack;
-	%rarm = %this.aRArm;
-	%rhand = %this.aRHand;
-	%rleg = %this.aRLeg;
-	%secondPack = %this.aSecondPack;
+	%accent = %this.bAccent;
+	%chest = %this.bChest;
+	%hat = %this.bHat;
+	%hip = %this.bHip;
+	%larm = %this.bLArm;
+	%lhand = %this.bLHand;
+	%lleg = %this.bLLeg;
+	%pack = %this.bPack;
+	%rarm = %this.bRArm;
+	%rhand = %this.bRHand;
+	%rleg = %this.bRLeg;
+	%secondPack = %this.bSecondPack;
 
 	if (%hat == 1 && %accent)
 		%accent = 4;

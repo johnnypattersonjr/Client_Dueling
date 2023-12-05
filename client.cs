@@ -289,6 +289,8 @@ function dcDataClient::onConnectFailed(%this)
 	%this.commFailure();
 }
 
+$dcAvatarPrefRestriction = " DecalName FaceName AccentColor ChestColor HatColor HeadColor HipColor LArmColor LHandColor LLegColor PackColor RArmColor RHandcolor RLegcolor SecondPackColor Accent Chest Hat Hip LArm LHand LLeg Pack RArm RHand RLeg SecondPack ";
+
 function dcDataClient::onLine(%this, %line)
 {
 	%msgType = getField(%line, 0);
@@ -304,7 +306,8 @@ function dcDataClient::onLine(%this, %line)
 	case "AP": // Avatar Preference
 		%field = getField(%line, 1);
 		%val = getField(%line, 2);
-		dcAvatar.a[%field] = %val;
+		if (strpos($dcAvatarPrefRestriction, " " @ %field @ " ") != -1)
+			dcAvatar.b[%field] = %val;
 	case "AR": // Avatar Reset
 		dcAvatarReset(dcAvatar);
 	case "BS": // Stats
