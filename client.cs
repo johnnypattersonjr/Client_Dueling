@@ -306,7 +306,7 @@ function dcDataClient::onLine(%this, %line)
 	case "AP": // Avatar Preference
 		%field = getField(%line, 1);
 		%val = getField(%line, 2);
-		if (strpos($dcAvatarPrefRestriction, " " @ %field @ " ") != -1)
+		if (strstr($dcAvatarPrefRestriction, " " @ %field @ " ") != -1)
 			dcAvatar.b[%field] = %val;
 	case "AR": // Avatar Reset
 		dcAvatarReset(dcAvatar);
@@ -1262,7 +1262,7 @@ function dcDuel::updatePlayerList(%this)
 		%btn = %this.playerBtn[%id];
 		%tab = %this.playerTab[%id];
 
-		if (strLen(%this.searchChars) && strPos(strLwr(%name), strLwr(%this.searchChars)) == -1)
+		if (strLen(%this.searchChars) && strstr(strLwr(%name), strLwr(%this.searchChars)) == -1)
 		{
 			if (%this.currPlayer == %id)
 			{
@@ -2477,7 +2477,7 @@ function clientCmddcShowSubmissionInfo(%builders, %tags)
 
 package Client_Dueling {
 
-function disconnectedCleanup()
+function disconnectedCleanup(%a)
 {
 	if ($dcConnected)
 	{
@@ -2516,7 +2516,7 @@ function disconnectedCleanup()
 		dcDlg.setMode(0);
 	}
 
-	parent::disconnectedCleanup();
+	parent::disconnectedCleanup(%a);
 }
 
 function GuiMLTextCtrl::onUrl(%this, %url)
