@@ -1,0 +1,3 @@
+version	2.1.1
+channel	release
+repository	mods.greek2me.us/third-party
