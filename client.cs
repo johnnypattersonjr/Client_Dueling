@@ -9,11 +9,14 @@ exec("./scripts/ui.cs");
 if (isFile("config/client/dueling.cs"))
 	exec("config/client/dueling.cs");
 
+if (!isFunction("RemapDlg", "onWake"))
+	exec("./scripts/defaultRemapDlgOnWake.cs");
+
 if (!$dcControlsLoaded)
 {
 	// Declare Dueling binding division
 	$remapDivision[$remapCount]	= "Dueling";
-	$remapName[$remapCount]	= "Toggle Main Window";
+	$remapName[$remapCount]	= "Toggle UI (" @ (isWindows() ? "Ctrl D" : "Cmd D") @ ")";
 	$remapCmd[$remapCount] = "dcToggleWindow";
 	$remapCount++;
 
@@ -2541,6 +2544,105 @@ function GuiMLTextCtrl::onUrl(%this, %url)
 	default:
 		parent::onUrl(%this, %url);
 	}
+}
+
+function RemapDlg::onWake(%this)
+{
+	Parent::onWake(%this);
+
+	%binding = GlobalActionMap.getBinding("dcToggleWindow");
+
+	if (%binding !$= "")
+		GlobalActionMap.unbind(getWord(%binding, 0), removeWord(%binding, 0));
+}
+
+function optionsDlg::clearAllBinds(%this, %confirm)
+{
+	Parent::clearAllBinds(%this, %confirm);
+
+	if (%confirm)
+	{
+		%defaultAction = isWindows() ? "ctrl d" : "cmd d";
+
+		if (GlobalActionMap.getCommand("keyboard", %defaultAction) $= "")
+			GlobalActionMap.bind("keyboard", %defaultAction, "dcToggleWindow");
+	}
+}
+
+function OptRemapInputCtrl::onInputEvent(%this, %device, %action)
+{
+	%defaultAction = isWindows() ? "ctrl d" : "cmd d";
+
+	if (%action $= "escape")
+	{
+		Parent::onInputEvent(%this, %device, %action);
+
+		if (moveMap.getCommand("keyboard", %defaultAction) $= "" &&
+			GlobalActionMap.getCommand("keyboard", %defaultAction) $= "")
+		{
+			GlobalActionMap.bind("keyboard", %defaultAction, "dcToggleWindow");
+		}
+
+		return;
+	}
+
+	%prevBinding = moveMap.getBinding($remapCmd[%this.index]);
+	%prevDevice = getField(%prevBinding, 0);
+	%prevAction = getField(%prevBinding, 1);
+
+	Parent::onInputEvent(%this, %device, %action);
+
+	%newBinding = moveMap.getBinding($remapCmd[%this.index]);
+
+	if (%newBinding !$= %prevBinding &&
+		GlobalActionMap.getCommand("keyboard", %defaultAction) $= "" &&
+		moveMap.getCommand("keyboard", %defaultAction) $= "" &&
+		moveMap.getBinding("dcToggleWindow") $= "" &&
+		%action !$= %defaultAction)
+	{
+		GlobalActionMap.bind("keyboard", %defaultAction, "dcToggleWindow");
+		return;
+	}
+}
+
+function redoMapping(%device, %action, %cmd, %previousIndex, %index)
+{
+	Parent::redoMapping(%device, %action, %cmd, %previousIndex, %index);
+
+	%defaultAction = isWindows() ? "ctrl d" : "cmd d";
+
+	if (GlobalActionMap.getCommand("keyboard", %defaultAction) $= "" &&
+		moveMap.getBinding("dcToggleWindow") $= "" &&
+		moveMap.getCommand("keyboard", %defaultAction) $= "" &&
+		%action !$= %defaultAction)
+	{
+		GlobalActionMap.bind("keyboard", %defaultAction, "dcToggleWindow");
+		return;
+	}
+}
+
+function defaultControlsGui::apply()
+{
+	Parent::apply();
+
+	%defaultAction = isWindows() ? "ctrl d" : "cmd d";
+
+	if (GlobalActionMap.getCommand("keyboard", %defaultAction) $= "" &&
+		moveMap.getBinding("dcToggleWindow") $= "" &&
+		moveMap.getCommand("keyboard", %defaultAction) $= "")
+	{
+		GlobalActionMap.bind("keyboard", %defaultAction, "dcToggleWindow");
+	}
+}
+
+function initClient()
+{
+	Parent::initClient();
+
+	%action = isWindows() ? "ctrl d" : "cmd d";
+
+	if (moveMap.getBinding("dcToggleWindow") $= "" && moveMap.getCommand("keyboard", %action) $= "")
+		GlobalActionMap.bind(%keyboard, %action, "dcToggleWindow");
 }
 
 }; // package Client_Dueling
