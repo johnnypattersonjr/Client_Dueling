@@ -2,7 +2,7 @@
 
 $dcVersionMajor = 2;
 $dcVersionMinor = 1;
-$dcVersionRevision = 0;
+$dcVersionRevision = 1;
 
 exec("./scripts/ui.cs");
 
