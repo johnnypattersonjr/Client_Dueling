@@ -2635,14 +2635,21 @@ function defaultControlsGui::apply()
 	}
 }
 
-function initClient()
+function MainMenuGui::onRender(%this)
 {
-	Parent::initClient();
+	Parent::onRender(%this);
 
-	%action = isWindows() ? "ctrl d" : "cmd d";
+	// This should execute right after the client's saved hotkeys have been
+	// loaded and after all client mods have been loaded.
 
-	if (moveMap.getBinding("dcToggleWindow") $= "" && moveMap.getCommand("keyboard", %action) $= "")
-		GlobalActionMap.bind(%keyboard, %action, "dcToggleWindow");
+	%defaultAction = isWindows() ? "ctrl d" : "cmd d";
+
+	if (GlobalActionMap.getCommand("keyboard", %defaultAction) $= "" &&
+		moveMap.getBinding("dcToggleWindow") $= "" &&
+		moveMap.getCommand("keyboard", %defaultAction) $= "")
+	{
+		GlobalActionMap.bind("keyboard", %defaultAction, "dcToggleWindow");
+	}
 }
 
 }; // package Client_Dueling
